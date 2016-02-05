@@ -4,14 +4,16 @@ Imports System.Net
 Imports System.Security.Cryptography
 Imports System.Text
 Imports System.Windows.Forms
-Public Class fnStandart
+Public Class functions
     Private Declare Unicode Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringW" (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal lpString As String, ByVal lpFileName As String) As Int32
     Private Declare Unicode Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringW" (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Int32, ByVal lpFileName As String) As Int32
+    Shared alphabet() As String = {"£", "锋", "ਖ", "ਕ", "메", "导", "ن", "%", "马", "哦", "子", "!", "\", "s", "吉", "ն", "ք", "펜", "ط", "ש", "ਦ", "아", "ե", "땅", "快", "力", "+", "과", "疯", "ц", "'", "电", "ד", "z", "女", "孔", "带", "x", "ס", "爱", "$", "鼓", "ո", "ו", "կ", "ز", ",", "坦", "冻", "د", "艾", "침", "ղ", "얼", "ਅ", "ر", "녀", "յ", "류", "笔", "娜", "h", "y", "ը", "п", "բ", "ט", "迪", "ئ", "脑", "ب", "ռ", "פ", "크", "弗", "ş", "男", "n", "ğ", "}", "ਗ", "教", "提", "ћ", "€", "տ", "람", "时", "克", "贝", "f", "v", "դ", "结", "6", "콩", "a", "ਲ", "1", "勒", "屁", "^", "д", "k", "吾", "o", "ר", "ث", "ش", "ਫ", "غ", "图", "ت", "饶", "|", "筆", "9", "维", "ָ", "购", "p", "拉", "ր", "午", "花", "ص", "屄", "3", "贼", "ਤ", "소", "g", "晚", "밤", "亲", "շ", "ם", "و", "报", "术", "姆", "订", "片", "影", "能", "铁", "5", "_", "ı", "u", "일", "西", "索", "比", "d", "ਧ", "ւ", "和", "蕪", "ا", "2", "₺", "ਜ", "脚", "丝", "t", "א", "#", "ս", "德", "վ", "굴", "m", "院", "堅", "儿", "ի", "0", "校", "գ", "斯", "ਰ", "報", "ਬ", "=", "w", "豆", "ح", "ض", "尺", "上", "ؤ", "ي", "ջ", "高", "开", ";", "的", "平", "家", "é", "ע", "칼", "览", "լ", "水", "ա", "字", "服", "탱", "ч", "ק", "저", "肖", "ਨ", "性", "م", "白", "后", "面", "ਹ", "ਾ", "展", ">", "자", "室", "q", "c", "ء", "س", "果", "զ", "*", "ਿ", "名", "ਸ", "b", "&", "i", "?", "մ", "ه", "4", "孩", "小", "ف", "锈", "色", "天", "刻", "j", "ੀ", "/", "ਮ", "남", "冰", "魔", "伊", "ق", "른", "[", "ظ", "人", "ਚ", "{", "л", "]", "7", "头", "r", "夜", "月", "剧", "l", "з", "ö", "像", "չ", "마", "½", "前", "生", "ל", "线", "ç", "и", "尔", ")", "e", "녁", "手", "ج", "ג", "(", "穿", "裙", "师", "ل", ".", "ך", "<", "ü", "8", "情", "월", "诶", "杰", "别", "恕", "ى", "ع", "خ", "견", "荒", "卡", "נ", "演", "学"}
+    Shared Generator As Random = New Random(Now.Millisecond)
     ''' <summary>
     ''' combobox auto change dropdownwidth
     ''' </summary>
     ''' <param name="senderComboBox"></param>
-    Public Sub AdjustComboBoxWidth(senderComboBox As ComboBox)
+    Public Shared Sub AdjustComboBoxWidth(senderComboBox As ComboBox)
         Dim width As Integer = senderComboBox.DropDownWidth
         Dim g As Graphics = senderComboBox.CreateGraphics()
         Dim font As Font = senderComboBox.Font
@@ -34,7 +36,7 @@ Public Class fnStandart
     ''' <param name="value"></param>
     ''' <param name="ch"></param>
     ''' <returns></returns>
-    Public Function CountCharacter(ByVal value As String, ByVal ch As Char) As Integer
+    Public Shared Function CountCharacter(ByVal value As String, ByVal ch As Char) As Integer
         Return value.Count(Function(c As Char) c = ch)
     End Function
     ''' <summary>
@@ -42,7 +44,7 @@ Public Class fnStandart
     ''' </summary>
     ''' <param name="local_IP"></param>
     ''' <returns></returns>
-    Public Function GetIPAddress(Optional local_IP As String = "172.22") As String
+    Public Shared Function GetIPAddress(Optional local_IP As String = "172.22") As String
         Dim hostname As IPHostEntry = Dns.GetHostEntry(Dns.GetHostName())
         Dim ip As IPAddress() = hostname.AddressList
         For Each adres In ip
@@ -55,14 +57,14 @@ Public Class fnStandart
     ''' </summary>
     ''' <param name="str"></param>
     ''' <returns></returns>
-    Public Function TitleCase(str As String) As String
+    Public Shared Function TitleCase(str As String) As String
         Return StrConv(Trim(str), VbStrConv.ProperCase)
     End Function
     ''' <summary>
     ''' dgv'ye yapıştır kabul ettirir
     ''' </summary>
     ''' <param name="dgv"></param>
-    Public Sub PasteUnboundRecords(dgv As DataGridView)
+    Public Shared Sub PasteUnboundRecords(dgv As DataGridView)
         Try
             Dim rowLines As String() = Clipboard.GetText(TextDataFormat.Text).Split(New String(0) {vbCr & vbLf}, StringSplitOptions.None)
             Dim currentRowIndex As Integer = (If(dgv.CurrentRow IsNot Nothing, dgv.CurrentRow.Index, 0))
@@ -109,7 +111,7 @@ Public Class fnStandart
     ''' </summary>
     ''' <param name="Input"></param>
     ''' <returns></returns>
-    Public Function Md5Convert(Input As String) As String
+    Public Shared Function Md5Convert(Input As String) As String
         If IsDBNull(Input) = True Then Return ""
         Using md5Hash As MD5 = MD5.Create()
             ' Convert the input string to a byte array and compute the hash. 
@@ -130,12 +132,12 @@ Public Class fnStandart
     ''' </summary>
     ''' <param name="menu"></param>
     ''' <param name="menues"></param>
-    Public Sub GetSubMenus2List(menu As MenuStrip, menues As List(Of ToolStripItem))
+    Public Shared Sub GetSubMenus2List(menu As MenuStrip, menues As List(Of ToolStripItem))
         For Each t As ToolStripItem In menu.Items
             GetMenues(t, menues) 'alt menüleri de alsın diye iç içe bir döngü
         Next
     End Sub
-    Private Sub GetMenues(ByVal Current As ToolStripItem, ByRef menues As List(Of ToolStripItem))
+    Private Shared Sub GetMenues(ByVal Current As ToolStripItem, ByRef menues As List(Of ToolStripItem))
         If Current.Name.StartsWith("ToolStripMenuItem") = False Then menues.Add(Current) 'not the seperators
         If TypeOf (Current) Is ToolStripMenuItem Then
             For Each menu As ToolStripItem In DirectCast(Current, ToolStripMenuItem).DropDownItems
@@ -150,7 +152,7 @@ Public Class fnStandart
     ''' <param name="Section"></param>
     ''' <param name="ParamName"></param>
     ''' <param name="ParamVal"></param>
-    Public Sub INI_Write(ByVal iniFileName As String, ByVal Section As String, ByVal ParamName As String, ByVal ParamVal As String)
+    Public Shared Sub INI_Write(ByVal iniFileName As String, ByVal Section As String, ByVal ParamName As String, ByVal ParamVal As String)
         Dim Result As Integer = WritePrivateProfileString(Section, ParamName, ParamVal, iniFileName)
     End Sub
     ''' <summary>
@@ -161,7 +163,7 @@ Public Class fnStandart
     ''' <param name="ParamName"></param>
     ''' <param name="ParamDefault"></param>
     ''' <returns></returns>
-    Public Function INI_Read(ByVal IniFileName As String, ByVal Section As String, ByVal ParamName As String, Optional ByVal ParamDefault As String = "") As String
+    Public Shared Function INI_Read(ByVal IniFileName As String, ByVal Section As String, ByVal ParamName As String, Optional ByVal ParamDefault As String = "") As String
         Dim ParamVal As String = Space$(1024)
         Dim LenParamVal As Long = GetPrivateProfileString(Section, ParamName, ParamDefault, ParamVal, Len(ParamVal), IniFileName)
         Return Left$(ParamVal, LenParamVal)
@@ -171,7 +173,7 @@ Public Class fnStandart
     ''' </summary>
     ''' <param name="email"></param>
     ''' <returns></returns>
-    Public Function isEmail(email As String) As Boolean
+    Public Shared Function isEmail(email As String) As Boolean
         'info from: en.wikipedia.org/wiki/Email_address
         'ilk kontroller
         If Len(email) > 320 Then Return False '320 karakterden uzun olamaz
@@ -219,7 +221,7 @@ Public Class fnStandart
     ''' </summary>
     ''' <param name="value"></param>
     ''' <returns></returns>
-    Public Function isNumeric(value As String) As Boolean
+    Public Shared Function isNumeric(value As String) As Boolean
         Return isNumeric(value)
     End Function
     ''' <summary>
@@ -227,7 +229,7 @@ Public Class fnStandart
     ''' </summary>
     ''' <param name="url"></param>
     ''' <returns></returns>
-    Private Function GetWebResponse(url As String) As String
+    Public Shared Function GetWebResponse(url As String) As String
         Dim request As WebRequest = WebRequest.Create(url)
         ' If required by the server, set the credentials.
         request.Credentials = CredentialCache.DefaultCredentials
@@ -245,5 +247,92 @@ Public Class fnStandart
         reader.Close()
         response.Close()
         Return responseFromServer
+    End Function
+    ''' <summary>
+    ''' randomizes an array
+    ''' </summary>
+    ''' <param name="items"></param>
+    Public Shared Sub RandomizeArray(ByVal items() As String)
+        Dim max_index As Integer = items.Length - 1
+        Dim rnd As New Random
+        For i As Integer = 0 To max_index - 1
+            ' Pick an item for position i.
+            Dim j As Integer = rnd.Next(i, max_index + 1)
+            ' Swap them.
+            Dim temp As String = items(i)
+            items(i) = items(j)
+            items(j) = temp
+        Next i
+    End Sub
+    ''' <summary>
+    ''' creates a random number
+    ''' </summary>
+    ''' <param name="Min"></param>
+    ''' <param name="Max"></param>
+    ''' <returns></returns>
+    Public Shared Function GetRandomNumber(ByVal Min As Integer, ByVal Max As Integer) As Integer
+        Return Generator.Next(Min, Max)
+    End Function
+    ''' <summary>
+    ''' şifrele
+    ''' asc olarak 32 ve sonrasını şifreleyecek
+    ''' 0-9: 48-57, +:43, -:45
+    ''' </summary>
+    ''' <param name="txt"></param>
+    ''' <returns></returns>
+    Public Shared Function Encrypt(txt As String) As String
+        Dim ascii, shift, uzunluk As Integer : Dim crypted As String
+        'rastgele shift sayısını üret
+        shift = GetRandomNumber(-99, +99)
+        If shift < -9 Then
+            crypted = alphabet(Asc("-")) & alphabet(Asc(shift.ToString().Substring(1, 1))) & alphabet(Asc(shift.ToString().Substring(2, 1)))
+        ElseIf shift < 0 Then
+            crypted = alphabet(Asc("-")) & alphabet(Asc("0")) & alphabet(Asc(shift.ToString().Substring(1, 1)))
+        ElseIf shift < 10 Then
+            crypted = alphabet(Asc("+")) & alphabet(Asc("0")) & alphabet(Asc(shift))
+        Else
+            crypted = alphabet(Asc("+")) & alphabet(Asc(shift.ToString().Substring(0, 1))) & alphabet(Asc(shift.ToString().Substring(1, 1)))
+        End If
+        'her karakteri alphabetteki harf ile değiştir
+        uzunluk = txt.Length
+        For index = 0 To uzunluk - 1
+            'ilk önce seçili harfin ascii kodunu buluyoruz
+            ascii = Asc(txt.Substring(index, 1)) + shift
+            If ascii < 0 Then ascii += alphabet.Length Else If ascii >= alphabet.Length Then ascii -= alphabet.Length
+            crypted &= alphabet(ascii)
+            'şimdide ratgele harfi ekliyoruz
+            Dim tmp As Integer = GetRandomNumber(0, alphabet.Length - 1)
+            crypted &= alphabet(tmp)
+        Next
+        Return crypted
+    End Function
+    ''' <summary>
+    ''' şifreyi çöz
+    ''' </summary>
+    ''' <param name="txt"></param>
+    ''' <returns></returns>
+    Public Shared Function Decrypt(txt As String) As String
+        Dim ascii, shift, uzunluk As Integer : Dim decrypted As String = ""
+        'ilk önce shifti bul
+        For i = 0 To 2
+            For j = 0 To alphabet.Length - 1
+                If txt.Substring(i, 1) = alphabet(j) Then ascii = j : Exit For
+            Next
+            If ascii < 0 Then ascii += alphabet.Length Else If ascii >= alphabet.Length Then ascii -= alphabet.Length
+            decrypted &= Chr(ascii)
+        Next
+        shift = Convert.ToInt32(decrypted) : decrypted = ""
+        txt = txt.Remove(0, 3)
+        uzunluk = txt.Length
+        For i = 0 To uzunluk - 1
+            If i Mod 2 = 0 Then
+                For j = 0 To alphabet.Length - 1
+                    If txt.Substring(i, 1) = alphabet(j) Then ascii = j - shift : Exit For
+                Next
+                If ascii < 0 Then ascii += alphabet.Length Else If ascii >= alphabet.Length Then ascii -= alphabet.Length
+                decrypted &= Chr(ascii)
+            End If
+        Next
+        Return decrypted
     End Function
 End Class
