@@ -7,8 +7,8 @@ namespace TesterMvc.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.encrypted = functions.Encrypt("Hüseyin Sekmenoğlu");
-            ViewBag.decrypted = functions.Decrypt(ViewBag.encrypted);
+            ViewBag.encrypted = fn.Encrypt2("Hüseyin Sekmenoğlu");
+            ViewBag.decrypted = fn.Decrypt2(ViewBag.encrypted);
             return View();
         }
     }
