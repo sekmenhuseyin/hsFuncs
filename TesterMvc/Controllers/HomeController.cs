@@ -7,8 +7,8 @@ namespace TesterMvc.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.encrypted = fns.EncryptString("Hüseyin Sekmenoğlu","KarineSoft");
-            ViewBag.decrypted = fns.DecryptString(ViewBag.encrypted, "KarineSoft");
+            ViewBag.encrypted = fns.Encrypt("Hüseyin Sekmenoğlu","KarineSoft");
+            ViewBag.decrypted = fns.Decrypt(ViewBag.encrypted, "KarineSoft");
             return View();
         }
     }

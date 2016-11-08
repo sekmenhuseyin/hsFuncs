@@ -1,8 +1,10 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports System.Linq
 Imports System.Drawing
 Imports System.Windows.Forms
 Imports Effortless.Net.Encryption
+Imports System.Collections.Generic
 ''' <summary>
 ''' Frequently  used functions cobined in a single dll
 ''' </summary>
@@ -362,7 +364,7 @@ Public Class fns
     ''' <summary>
     ''' Encrypt with salt
     ''' </summary>
-    Public Shared Function EncryptString(txt As String, salt As String) As String
+    Public Shared Function Encrypt(txt As String, salt As String) As String
         If txt = "" Then Return ""
         If salt = "" Then salt = Application.CompanyName
         If Len(salt) < 8 Then Return ""
@@ -371,7 +373,7 @@ Public Class fns
     ''' <summary>
     ''' Decrypt with salt
     ''' </summary>
-    Public Shared Function DecryptString(txt As String, salt As String) As String
+    Public Shared Function Decrypt(txt As String, salt As String) As String
         If txt = "" Then Return ""
         If salt = "" Then salt = Application.CompanyName
         If Len(salt) < 8 Then Return ""
@@ -383,7 +385,6 @@ Public Class fns
     Public Shared Function GenerateHash(txt As String, salt As String) As String
         If txt = "" Then Return ""
         If salt = "" Then salt = Application.CompanyName
-        If Len(salt) < 8 Then Return ""
         Return Hash.Create(HashType.SHA512, txt, salt, True)
     End Function
     ''' <summary>
