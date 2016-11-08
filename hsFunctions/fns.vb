@@ -2,12 +2,13 @@
 Imports System.Net
 Imports System.Drawing
 Imports System.Windows.Forms
+Imports Effortless.Net.Encryption
 ''' <summary>
 ''' Frequently  used functions cobined in a single dll
 ''' </summary>
-Public Class fn
-    Shared alphabet() As String = {"£", "锋", "ਖ", "ਕ", "메", "导", "ن", "%", "马", "哦", "子", "!", "\", "s", "吉", "ն", "ք", "펜", "ط", "ש", "ਦ", "아", "ե", "땅", "快", "力", "+", "과", "疯", "ц", "'", "电", "ד", "z", "女", "孔", "带", "x", "ס", "爱", "$", "鼓", "ո", "ו", "կ", "ز", ",", "坦", "冻", "د", "艾", "침", "ղ", "얼", "ਅ", "ر", "녀", "յ", "류", "笔", "娜", "h", "y", "ը", "п", "բ", "ט", "迪", "ئ", "脑", "ب", "ռ", "פ", "크", "弗", "ş", "男", "n", "ğ", "}", "ਗ", "教", "提", "ћ", "€", "տ", "람", "时", "克", "贝", "f", "v", "դ", "结", "6", "콩", "a", "ਲ", "1", "勒", "屁", "^", "д", "k", "吾", "o", "ר", "ث", "ش", "ਫ", "غ", "图", "ت", "饶", "|", "筆", "9", "维", "ָ", "购", "p", "拉", "ր", "午", "花", "ص", "屄", "3", "贼", "ਤ", "소", "g", "晚", "밤", "亲", "շ", "ם", "و", "报", "术", "姆", "订", "片", "影", "能", "铁", "5", "_", "ı", "u", "일", "西", "索", "比", "d", "ਧ", "ւ", "和", "蕪", "ا", "2", "₺", "ਜ", "脚", "丝", "t", "א", "#", "ս", "德", "վ", "굴", "m", "院", "堅", "儿", "ի", "0", "校", "գ", "斯", "ਰ", "報", "ਬ", "=", "w", "豆", "ح", "ض", "尺", "上", "ؤ", "ي", "ջ", "高", "开", ";", "的", "平", "家", "é", "ע", "칼", "览", "լ", "水", "ա", "字", "服", "탱", "ч", "ק", "저", "肖", "ਨ", "性", "م", "白", "后", "面", "ਹ", "ਾ", "展", ">", "자", "室", "q", "c", "ء", "س", "果", "զ", "*", "ਿ", "名", "ਸ", "b", "&", "i", "?", "մ", "ه", "4", "孩", "小", "ف", "锈", "色", "天", "刻", "j", "ੀ", "/", "ਮ", "남", "冰", "魔", "伊", "ق", "른", "[", "ظ", "人", "ਚ", "{", "л", "]", "7", "头", "r", "夜", "月", "剧", "l", "з", "ö", "像", "չ", "마", "½", "前", "生", "ל", "线", "ç", "и", "尔", ")", "e", "녁", "手", "ج", "ג", "(", "穿", "裙", "师", "ل", ".", "ך", "<", "ü", "8", "情", "월", "诶", "杰", "别", "恕", "ى", "ع", "خ", "견", "荒", "卡", "נ", "演", "学"}
-    Shared Generator As Random = New Random(Now.Millisecond)
+Public Class fns
+    Private Shared alphabet() As String = {"£", "锋", "ਖ", "ਕ", "메", "导", "ن", "%", "马", "哦", "子", "!", "\", "s", "吉", "ն", "ք", "펜", "ط", "ש", "ਦ", "아", "ե", "땅", "快", "力", "+", "과", "疯", "ц", "'", "电", "ד", "z", "女", "孔", "带", "x", "ס", "爱", "$", "鼓", "ո", "ו", "կ", "ز", ",", "坦", "冻", "د", "艾", "침", "ղ", "얼", "ਅ", "ر", "녀", "յ", "류", "笔", "娜", "h", "y", "ը", "п", "բ", "ט", "迪", "ئ", "脑", "ب", "ռ", "פ", "크", "弗", "ş", "男", "n", "ğ", "}", "ਗ", "教", "提", "ћ", "€", "տ", "람", "时", "克", "贝", "f", "v", "դ", "结", "6", "콩", "a", "ਲ", "1", "勒", "屁", "^", "д", "k", "吾", "o", "ר", "ث", "ش", "ਫ", "غ", "图", "ت", "饶", "|", "筆", "9", "维", "ָ", "购", "p", "拉", "ր", "午", "花", "ص", "屄", "3", "贼", "ਤ", "소", "g", "晚", "밤", "亲", "շ", "ם", "و", "报", "术", "姆", "订", "片", "影", "能", "铁", "5", "_", "ı", "u", "일", "西", "索", "比", "d", "ਧ", "ւ", "和", "蕪", "ا", "2", "₺", "ਜ", "脚", "丝", "t", "א", "#", "ս", "德", "վ", "굴", "m", "院", "堅", "儿", "ի", "0", "校", "գ", "斯", "ਰ", "報", "ਬ", "=", "w", "豆", "ح", "ض", "尺", "上", "ؤ", "ي", "ջ", "高", "开", ";", "的", "平", "家", "é", "ע", "칼", "览", "լ", "水", "ա", "字", "服", "탱", "ч", "ק", "저", "肖", "ਨ", "性", "م", "白", "后", "面", "ਹ", "ਾ", "展", ">", "자", "室", "q", "c", "ء", "س", "果", "զ", "*", "ਿ", "名", "ਸ", "b", "&", "i", "?", "մ", "ه", "4", "孩", "小", "ف", "锈", "色", "天", "刻", "j", "ੀ", "/", "ਮ", "남", "冰", "魔", "伊", "ق", "른", "[", "ظ", "人", "ਚ", "{", "л", "]", "7", "头", "r", "夜", "月", "剧", "l", "з", "ö", "像", "չ", "마", "½", "前", "生", "ל", "线", "ç", "и", "尔", ")", "e", "녁", "手", "ج", "ג", "(", "穿", "裙", "师", "ل", ".", "ך", "<", "ü", "8", "情", "월", "诶", "杰", "别", "恕", "ى", "ع", "خ", "견", "荒", "卡", "נ", "演", "学"}
+    Private Shared Generator As Random = New Random(Now.Millisecond)
     Private Declare Unicode Function WritePrivateProfileString Lib "kernel32" _
                                     Alias "WritePrivateProfileStringW" (ByVal lpApplicationName As String,
                                     ByVal lpKeyName As String, ByVal lpString As String,
@@ -343,7 +344,7 @@ Public Class fn
         Return Left$(ParamVal, LenParamVal)
     End Function
     ''' <summary>
-    ''' unzip
+    ''' Unzip using Shell32
     ''' </summary>
     Public Shared Sub UnZip(outputFolder As String, inputZip As String)
         Dim shObj As Object = Activator.CreateInstance(Type.GetTypeFromProgID("Shell.Application"))
@@ -359,9 +360,37 @@ Public Class fn
         output.CopyHere((input.Items), 20) '20=4+16
     End Sub
     ''' <summary>
-    ''' Encrpyts with abnormal way
+    ''' Encrypt with salt
     ''' </summary>
-    Public Shared Function Encrypt2(txt As String) As String
+    Public Shared Function EncryptString(txt As String, salt As String) As String
+        If txt = "" Then Return ""
+        If salt = "" Then salt = Application.CompanyName
+        If Len(salt) < 8 Then Return ""
+        Return Strings.Encrypt(txt, Application.CompanyName, salt, String.Empty.PadLeft(32, "#"), Bytes.KeySize.Size256)
+    End Function
+    ''' <summary>
+    ''' Decrypt with salt
+    ''' </summary>
+    Public Shared Function DecryptString(txt As String, salt As String) As String
+        If txt = "" Then Return ""
+        If salt = "" Then salt = Application.CompanyName
+        If Len(salt) < 8 Then Return ""
+        Return Strings.Decrypt(txt, Application.CompanyName, salt, String.Empty.PadLeft(32, "#"), Bytes.KeySize.Size256)
+    End Function
+    ''' <summary>
+    ''' Generates hash with most secure way as possible
+    ''' </summary>
+    Public Shared Function GenerateHash(txt As String, salt As String) As String
+        If txt = "" Then Return ""
+        If salt = "" Then salt = Application.CompanyName
+        If Len(salt) < 8 Then Return ""
+        Return Hash.Create(HashType.SHA512, txt, salt, True)
+    End Function
+    ''' <summary>
+    ''' Encrpyts without salt
+    ''' </summary>
+    Public Shared Function EncryptAscii(txt As String) As String
+        If txt = "" Then Return ""
         Dim ascii, shift, uzunluk As Integer : Dim crypted As String
         'rastgele shift sayısını üret
         shift = GetRandomNumber(-99, +99)
@@ -388,9 +417,10 @@ Public Class fn
         Return crypted
     End Function
     ''' <summary>
-    ''' Decrypts with abnormal way
+    ''' Decrypts without salt
     ''' </summary>
-    Public Shared Function Decrypt2(txt As String) As String
+    Public Shared Function DecryptAscii(txt As String) As String
+        If txt = "" Then Return ""
         Dim ascii, shift, uzunluk As Integer : Dim decrypted As String = ""
         'ilk önce shifti bul
         For i = 0 To 2

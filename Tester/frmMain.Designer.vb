@@ -29,11 +29,13 @@ Partial Class frmMain
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblIP = New System.Windows.Forms.Label()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(12, 172)
+        Me.TextBox1.Location = New System.Drawing.Point(12, 73)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(621, 20)
         Me.TextBox1.TabIndex = 0
@@ -42,25 +44,25 @@ Partial Class frmMain
         'TextBox2
         '
         Me.TextBox2.BackColor = System.Drawing.Color.White
-        Me.TextBox2.Location = New System.Drawing.Point(12, 235)
+        Me.TextBox2.Location = New System.Drawing.Point(12, 136)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(621, 20)
+        Me.TextBox2.Size = New System.Drawing.Size(273, 20)
         Me.TextBox2.TabIndex = 1
         '
         'TextBox3
         '
         Me.TextBox3.BackColor = System.Drawing.Color.White
-        Me.TextBox3.Location = New System.Drawing.Point(12, 302)
+        Me.TextBox3.Location = New System.Drawing.Point(359, 136)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ReadOnly = True
-        Me.TextBox3.Size = New System.Drawing.Size(621, 20)
+        Me.TextBox3.Size = New System.Drawing.Size(273, 20)
         Me.TextBox3.TabIndex = 2
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 156)
+        Me.Label1.Location = New System.Drawing.Point(12, 57)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(25, 13)
         Me.Label1.TabIndex = 3
@@ -69,7 +71,7 @@ Partial Class frmMain
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 219)
+        Me.Label2.Location = New System.Drawing.Point(12, 120)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(55, 13)
         Me.Label2.TabIndex = 4
@@ -78,7 +80,7 @@ Partial Class frmMain
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 286)
+        Me.Label3.Location = New System.Drawing.Point(356, 120)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(80, 13)
         Me.Label3.TabIndex = 5
@@ -93,11 +95,31 @@ Partial Class frmMain
         Me.lblIP.TabIndex = 6
         Me.lblIP.Text = "ip"
         '
+        'TextBox4
+        '
+        Me.TextBox4.BackColor = System.Drawing.Color.White
+        Me.TextBox4.Location = New System.Drawing.Point(12, 162)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.ReadOnly = True
+        Me.TextBox4.Size = New System.Drawing.Size(273, 20)
+        Me.TextBox4.TabIndex = 7
+        '
+        'TextBox5
+        '
+        Me.TextBox5.BackColor = System.Drawing.Color.White
+        Me.TextBox5.Location = New System.Drawing.Point(359, 162)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.ReadOnly = True
+        Me.TextBox5.Size = New System.Drawing.Size(273, 20)
+        Me.TextBox5.TabIndex = 8
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(645, 420)
+        Me.ClientSize = New System.Drawing.Size(649, 213)
+        Me.Controls.Add(Me.TextBox5)
+        Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.lblIP)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
@@ -120,4 +142,6 @@ Partial Class frmMain
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents lblIP As Label
+    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents TextBox5 As TextBox
 End Class
