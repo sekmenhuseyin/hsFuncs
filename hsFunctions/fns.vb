@@ -455,7 +455,7 @@ Public Class fns
             Ftp.Credentials = New NetworkCredential(FtpUser, FtpPass)
             Ftp.Method = WebRequestMethods.Ftp.UploadFile
             Ftp.UseBinary = True
-            Dim fs As FileStream = File.OpenRead(remoteFilePath)
+            Dim fs As FileStream = File.OpenRead(localFilePath)
             Dim buffer As Byte() = New Byte(CInt(fs.Length) - 1) {}
             fs.Read(buffer, 0, buffer.Length)
             fs.Close()
@@ -465,6 +465,7 @@ Public Class fns
             ftpstream.Close()
             Return True
         Catch ex As Exception
+            MsgBox(ex.Message)
             Return False
         End Try
     End Function
