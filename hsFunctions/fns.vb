@@ -35,7 +35,10 @@ Public Class fns
         'https://msdn.microsoft.com/en-us/library/8tfzyc64(v=vs.110).aspx
         Return (DateConv.[Date].ToString("D", DTFormat))
     End Function
-
+    Public Enum enumCalendars
+        Gregorian
+        Hijri
+    End Enum
     ''' <summary>
     ''' All input must be validated against a whitelist of acceptable value ranges.
     ''' </summary>
