@@ -1,26 +1,41 @@
-﻿Imports System.IO
-Imports System.Net
-Imports System.Linq
-Imports System.Drawing
-Imports System.Windows.Forms
-Imports Effortless.Net.Encryption
-Imports System.Collections.Generic
+﻿Imports Effortless.Net.Encryption
 ''' <summary>
 ''' Frequently  used functions cobined in a single dll
 ''' </summary>
 Public Class fns
     Private Shared alphabet() As String = {"£", "锋", "ਖ", "ਕ", "메", "导", "ن", "%", "马", "哦", "子", "!", "\", "s", "吉", "ն", "ք", "펜", "ط", "ש", "ਦ", "아", "ե", "땅", "快", "力", "+", "과", "疯", "ц", "'", "电", "ד", "z", "女", "孔", "带", "x", "ס", "爱", "$", "鼓", "ո", "ו", "կ", "ز", ",", "坦", "冻", "د", "艾", "침", "ղ", "얼", "ਅ", "ر", "녀", "յ", "류", "笔", "娜", "h", "y", "ը", "п", "բ", "ט", "迪", "ئ", "脑", "ب", "ռ", "פ", "크", "弗", "ş", "男", "n", "ğ", "}", "ਗ", "教", "提", "ћ", "€", "տ", "람", "时", "克", "贝", "f", "v", "դ", "结", "6", "콩", "a", "ਲ", "1", "勒", "屁", "^", "д", "k", "吾", "o", "ר", "ث", "ش", "ਫ", "غ", "图", "ت", "饶", "|", "筆", "9", "维", "ָ", "购", "p", "拉", "ր", "午", "花", "ص", "屄", "3", "贼", "ਤ", "소", "g", "晚", "밤", "亲", "շ", "ם", "و", "报", "术", "姆", "订", "片", "影", "能", "铁", "5", "_", "ı", "u", "일", "西", "索", "比", "d", "ਧ", "ւ", "和", "蕪", "ا", "2", "₺", "ਜ", "脚", "丝", "t", "א", "#", "ս", "德", "վ", "굴", "m", "院", "堅", "儿", "ի", "0", "校", "գ", "斯", "ਰ", "報", "ਬ", "=", "w", "豆", "ح", "ض", "尺", "上", "ؤ", "ي", "ջ", "高", "开", ";", "的", "平", "家", "é", "ע", "칼", "览", "լ", "水", "ա", "字", "服", "탱", "ч", "ק", "저", "肖", "ਨ", "性", "م", "白", "后", "面", "ਹ", "ਾ", "展", ">", "자", "室", "q", "c", "ء", "س", "果", "զ", "*", "ਿ", "名", "ਸ", "b", "&", "i", "?", "մ", "ه", "4", "孩", "小", "ف", "锈", "色", "天", "刻", "j", "ੀ", "/", "ਮ", "남", "冰", "魔", "伊", "ق", "른", "[", "ظ", "人", "ਚ", "{", "л", "]", "7", "头", "r", "夜", "月", "剧", "l", "з", "ö", "像", "չ", "마", "½", "前", "生", "ל", "线", "ç", "и", "尔", ")", "e", "녁", "手", "ج", "ג", "(", "穿", "裙", "师", "ل", ".", "ך", "<", "ü", "8", "情", "월", "诶", "杰", "别", "恕", "ى", "ع", "خ", "견", "荒", "卡", "נ", "演", "学"}
     Private Shared Generator As Random = New Random(Now.Millisecond)
-    Private Declare Unicode Function WritePrivateProfileString Lib "kernel32" _
-                                    Alias "WritePrivateProfileStringW" (ByVal lpApplicationName As String,
-                                    ByVal lpKeyName As String, ByVal lpString As String,
-                                    ByVal lpFileName As String) As Int32
+    Private Declare Unicode Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringW" (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal lpString As String, ByVal lpFileName As String) As Int32
+    Private Declare Unicode Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringW" (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Int32, ByVal lpFileName As String) As Int32
+    ''' <summary>
+    ''' Convert calendar types
+    ''' </summary>
+    Public Shared Function ConvertDateCalendar(ByVal DateConv As DateTime, ByVal Calendar As String, ByVal DateLangCulture As String) As String
+        Dim DTFormat As DateTimeFormatInfo
+        DateLangCulture = DateLangCulture.ToLower()
+        '' We can't have the hijri date writen in English. We will get a runtime error - LAITH - 11/13/2005 1:01:45 PM -
+        If Calendar = "Hijri" AndAlso DateLangCulture.StartsWith("en-") Then
+            DateLangCulture = "ar-sa"
+        End If
+        '' Set the date time format to the given culture - LAITH - 11/13/2005 1:04:22 PM -
+        DTFormat = New CultureInfo(DateLangCulture, False).DateTimeFormat
+        '' Set the calendar property of the date time format to the given calendar - LAITH - 11/13/2005 1:04:52 PM -
+        Select Case Calendar
+            Case "Hijri"
+                DTFormat.Calendar = New HijriCalendar()
+                Exit Select
+            Case "Gregorian"
+                DTFormat.Calendar = New GregorianCalendar()
+                Exit Select
+            Case Else
+                Return ""
+        End Select
+        '' We format the date structure to whatever we want - LAITH - 11/13/2005 1:05:39 PM -
+        DTFormat.ShortDatePattern = "dd/MM/yyyy"
+        'https://msdn.microsoft.com/en-us/library/8tfzyc64(v=vs.110).aspx
+        Return (DateConv.[Date].ToString("D", DTFormat))
+    End Function
 
-    Private Declare Unicode Function GetPrivateProfileString Lib "kernel32" _
-                                    Alias "GetPrivateProfileStringW" (ByVal lpApplicationName As String,
-                                    ByVal lpKeyName As String, ByVal lpDefault As String,
-                                    ByVal lpReturnedString As String, ByVal nSize As Int32,
-                                    ByVal lpFileName As String) As Int32
     ''' <summary>
     ''' All input must be validated against a whitelist of acceptable value ranges.
     ''' </summary>
