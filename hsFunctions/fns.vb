@@ -552,4 +552,11 @@ Public Class fns
             Return False
         End Try
     End Function
+    ''' <summary>
+    ''' Gets folder path for selected file
+    ''' </summary>
+    Public Shared Function GetDirPath(ByVal file As String) As String
+        Dim fi As New FileInfo(file)
+        Return fi.Directory.ToString
+    End Function
 End Class
